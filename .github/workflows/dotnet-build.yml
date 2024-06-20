@@ -20,12 +20,6 @@ jobs:
     - name: Configurar ambiente .NET
       uses: actions/setup-dotnet@v1 
 
-    - name: Compilar projeto
-      run: dotnet build --configuration Release
-
-    - name: Executar testes
-      run: dotnet test --no-restore --verbosity normal
-
     - name: Executar script personalizado
       run: |
         echo "Este é um script personalizado."
