@@ -20,9 +20,6 @@ jobs:
     - name: Configurar ambiente .NET
       uses: actions/setup-dotnet@v1 
 
-    - name: Restaurar pacotes
-      run: dotnet restore
-
     - name: Compilar projeto
       run: dotnet build --configuration Release
 
