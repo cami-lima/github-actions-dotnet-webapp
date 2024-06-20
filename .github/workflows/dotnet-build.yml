@@ -15,10 +15,10 @@ jobs:
 
     steps:
     - name: Checkout código
-      uses: actions/checkout@v2  
+      uses: actions/checkout@v2.4.0  
     
     - name: Configurar ambiente .NET
-      uses: actions/setup-dotnet@v1 
+      uses: actions/setup-dotnet@v1.11.0 
 
     - name: Executar script personalizado
       run: |
@@ -27,7 +27,7 @@ jobs:
 
     - name: Publicar artefatos
       if: success() 
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v2.2.4
       with:
         name: my-artifact
-        path: path/to/artifact 
+        path: .
