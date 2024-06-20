@@ -1,38 +1,42 @@
-name: PUSH-Validation
 
-on: 
-  push:
-
-jobs:
-  lint:
-    name: Lint Code Base
-
-    runs-on: ubuntu-latest
-
-    steps:
-
-      - uses: actions/checkout@v2
-
-      - uses: github/super-linter@v3
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-name: On Schedule
+name: PUSH Workflow
 
 on:
+  push:
+    branches:
+      - main 
+  
   schedule:
-    - cron: `30 6 * * 5` # every Monday 08:00 UTC
+    - cron: '30 6 * * 5' # every Monday 08:00 UTC 
 
-jobs: 
-  lint:
-    name: Code Base
-
+jobs:
+  build:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Checkout código
+      uses: actions/checkout@v2  
+    
+    - name: Configurar ambiente .NET
+      uses: actions/setup-dotnet@v1 
 
-      - uses: actions/checkout@v2
+    - name: Restaurar pacotes
+      run: dotnet restore
 
-      - uses: github/super-linter@v3
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Compilar projeto
+      run: dotnet build --configuration Release
+
+    - name: Executar testes
+      run: dotnet test --no-restore --verbosity normal
+
+    - name: Executar script personalizado
+      run: |
+        echo "Este é um script personalizado."
+        echo "Pode executar comandos adicionais aqui."
+
+    - name: Publicar artefatos
+      if: success() 
+      uses: actions/upload-artifact@v2
+      with:
+        name: my-artifact
+        path: path/to/artifact 
