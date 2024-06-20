@@ -10,7 +10,7 @@ on:
     - cron: '30 6 * * 5' # every Monday 08:00 UTC 
 
 jobs:
-  lint:
+  build:
     runs-on: ubuntu-latest
 
     steps:
