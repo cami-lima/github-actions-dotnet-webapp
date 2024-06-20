@@ -17,8 +17,11 @@ jobs:
     - name: Checkout código
       uses: actions/checkout@v2
     
-    - name: Lint Code Base
-      uses: github/super-linter@v3
+    - name: Configurar ambiente .NET
+      uses: actions/setup-dotnet@v1
+    
+    - name: Compilar projeto
+      run: dotnet build --configuration Release
 
     - name: Executar script personalizado
       run: |
